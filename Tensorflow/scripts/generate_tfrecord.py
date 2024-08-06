@@ -24,7 +24,7 @@ import xml.etree.ElementTree as ET
 import argparse
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'    # Suppress TensorFlow logging (1)
-import tensorflow.compat.v1 as tf
+import tensorflow as tf
 from PIL import Image
 from object_detection.utils import dataset_util, label_map_util
 from collections import namedtuple
@@ -85,10 +85,10 @@ def xml_to_csv(path):
                      int(root.find('size')[0].text),
                      int(root.find('size')[1].text),
                      member[0].text,
-                     int(member[4][0].text),
-                     int(member[4][1].text),
-                     int(member[4][2].text),
-                     int(member[4][3].text)
+                     int(member[5][0].text),
+                     int(member[5][1].text),
+                     int(member[5][2].text),
+                     int(member[5][3].text)
                      )
             xml_list.append(value)
     column_name = ['filename', 'width', 'height',
@@ -125,8 +125,8 @@ def create_tf_example(group, path):
 
     for index, row in group.object.iterrows():
         xmins.append(row['xmin'] / width)
-        xmaxs.append(row['xmax'] / width)
-        ymins.append(row['ymin'] / height)
+        xmaxs.append(row['ymin'] / width)
+        ymins.append(row['xmax'] / height)
         ymaxs.append(row['ymax'] / height)
         classes_text.append(row['class'].encode('utf8'))
         classes.append(class_text_to_int(row['class']))

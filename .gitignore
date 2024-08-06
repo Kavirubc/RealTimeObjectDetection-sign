@@ -1,2 +1,4 @@
 my_object_detection_env
-Tensorflow/workspace/images/collectedimages
+Tensorflow/labelimg
+Tensorflow/workspace/images
+Tensorflow/workspace/Tensorflow
